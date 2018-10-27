@@ -2,11 +2,14 @@ var gulp = require('gulp');
 var browserSync = require('browser-sync').create();
 var sass = require('gulp-sass');
 var wait = require('gulp-wait');
+var php = require('gulp-connect-php')
 
 // Static Server + watching scss/html files
 gulp.task('serve', ['sass'], function() {
 
+
     browserSync.init({
+        proxy: "http://localhost/school-projects/proyecto-insae/",
         server: "./" //RUTA PRINCIPAL DONDE SE INICIALIZARÁ EL SERVIDOR
     });
 
