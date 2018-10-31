@@ -17,7 +17,7 @@
 				<div class="card">
 
 					<h5 class="card-header info-color white-text text-center py-4">
-						<strong>Iniciar Sesión</strong>
+						<strong>Iniciar sesión</strong>
 					</h5>
 
 					<!--Card content-->

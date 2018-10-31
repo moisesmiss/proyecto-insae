@@ -2,15 +2,22 @@ var gulp = require('gulp');
 var browserSync = require('browser-sync').create();
 var sass = require('gulp-sass');
 var wait = require('gulp-wait');
-var php = require('gulp-connect-php')
+var php = require('gulp-connect-php');
+
+gulp.task('php', function(){
+	php.server({base:'./', port:8010, keepalive:true});
+});
 
 // Static Server + watching scss/html files
-gulp.task('serve', ['sass'], function() {
+gulp.task('serve', ['php', 'sass'], function() {
 
 
     browserSync.init({
-        proxy: "http://localhost/school-projects/proyecto-insae/",
-        server: "./" //RUTA PRINCIPAL DONDE SE INICIALIZARÁ EL SERVIDOR
+    	proxy: 'localhost:8010',
+    	baseDir: './',
+    	open: true,
+    	notify: false
+        //server: "./" //RUTA PRINCIPAL DONDE SE INICIALIZARÁ EL SERVIDOR
     });
 
     gulp.watch("./scss/*.scss", ['sass']); //RUTA DE LA CARPETA DE SASS ORIGEN
