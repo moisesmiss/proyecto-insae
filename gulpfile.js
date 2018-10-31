@@ -22,7 +22,7 @@ gulp.task('serve', ['php', 'sass'], function() {
 
     gulp.watch("./scss/*.scss", ['sass']); //RUTA DE LA CARPETA DE SASS ORIGEN
     gulp.watch("./*.html").on('change', browserSync.reload); //WATCH DE LOS ARCHIVOS HTML
-    gulp.watch("./*.php").on('change', browserSync.reload); //WATCH DE LOS ARCHIVOS PHP
+    gulp.watch("./*.php", browserSync.reload); //WATCH DE LOS ARCHIVOS PHP
 });
 
 // Compile sass into CSS & auto-inject into browsers

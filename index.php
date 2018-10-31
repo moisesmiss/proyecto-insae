@@ -57,7 +57,7 @@
 
 							<!-- Register -->
 							<p>
-								<a href="">Crear cuenta</a>
+								<a href="crear-cuenta.php">Crear cuenta</a>
 							</p>
 
 						</form>
