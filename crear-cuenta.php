@@ -1,60 +1,26 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-	<title>Sistema de ventas e inventario</title>
-	<link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap-grid.css">
-	<link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap-utilities.css">
-	<link rel="stylesheet" type="text/css" href="materialize/css/materialize.css">
-</head>
-<body>
-	<div class="container">
-		<div class="row justify-content-center">
-			<div class="col-12 col-md-4">
-				<h5 class="text-center my-4">Crear cuenta</h5>
-				<form class="row">
-					<div class="col-12">
-						<div class="input-field">
-							<input type="text" name="nombre" id="nombre">
-							<label for="nombre">Nombre</label>
-						</div>
-					</div>
-					<div class="col-12">
-						<div class="input-field">
-							<input type="text" name="apellidos" id="apellidos">
-							<label for="apellidos">Apellidos</label>
-						</div>
-					</div>
-					<div class="col-12">
-						<div class="input-field">
-							<input type="email" name="email" id="email">
-							<label for="email">Correo</label>
-						</div>
-					</div>
-					<div class="col-12">
-						<div class="input-field">
-							<input type="password" name="password" id="password">
-							<label for="password">Contraseña</label>
-						</div>
-					</div>
-					<div class="col-12">
-						<div class="input-field">
-							<input type="password" name="password2" id="password2">
-							<label for="password2">Repetir Contraseña</label>
-						</div>
-					</div>
-					<div class="col-12">
-						<button class="btn mx-auto d-block" type="submit">Aceptar</button>
-					</div>
-					<div class="col-12 my-4">
-						<a class="d-block text-center" href="index.php">Iniciar sesión</a>
-					</div>
-				</form>
-			</div>
-		</div>
-	</div>
+<?php
+require_once 'models/funciones.php';
 
-	<script type="text/javascript" src="materialize/js/materialize.min.js"></script>
-</body>
-</html>
+if($_SERVER['REQUEST_METHOD'] == 'POST'){
+	$nombre = $_POST['nombre'];
+	$apellidos = $_POST['apellidos'];
+	$email = $_POST['email'];
+	$password = $_POST['password'];
+	$password2 = $_POST['password2'];
+
+	if($password == $password2){
+		$password = password_hash($password, PASSWORD_DEFAULT);
+		$insert1 = insert('personas', ['nombre' => $nombre, 'apellidos' => $apellidos]);
+		$insert2 = insert('usuarios', ['id' => getLast('personas')['id'], 'email' => $email, 'password' => $password]);
+
+		if($insert1 && $insert2){
+			$success = true;
+			echo "<script>alert('Datos añadidos de forma correcta')</script>";
+		}
+	} else {
+		$error = ['las contraseñas no son iguales'];
+	}
+}
+
+
+require_once 'views/crear-cuenta.php';
