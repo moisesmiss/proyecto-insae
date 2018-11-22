@@ -20,3 +20,14 @@ function insert($tabla, $data){
 	else 
 		return false;
 }
+
+function find($tabla, $data){
+	$conexion = getConexion();
+	$campo = array_keys($data)[0];
+	$valor = array_values($data)[0];
+
+	$sql = "select * from $tabla where $campo = '$valor'";
+	$declaracion = $conexion->prepare($sql);
+	$declaracion->execute();
+	return $declaracion->fetch();
+}

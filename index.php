@@ -1,34 +1,24 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-	<title>Sistema de ventas e inventario</title>
-	<link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap-grid.css">
-	<link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap-utilities.css">
-	<link rel="stylesheet" type="text/css" href="materialize/css/materialize.css">
-</head>
-<body>
-	<div class="container">
-		<div class="row justify-content-center">
-			<div class="col-12 col-md-4">
-				<h5 class="text-center my-4">Iniciar sesión</h5>
-				<form>
-					<div class="input-field">
-						<input type="email" name="email" id="email">
-						<label for="email">Correo</label>
-					</div>
-					<div class="input-field">
-						<input type="password" name="password" id="password">
-						<label for="password">Contraseña</label>
-					</div>
-					<button class="btn mx-auto d-block" type="submit">Aceptar</button>
-					<a class="mt-4 d-block text-center" href="crear-cuenta.php">Crear cuenta</a>
-				</form>
-			</div>
-		</div>
-	</div>
+<?php
+require_once 'models/funciones.php';
+session_start();
+if(isset($_SESSION['admin'])){
+	header('location: administrador.php');
+}
 
-	<script type="text/javascript" src="materialize/js/materialize.min.js"></script>
-</body>
-</html>
+
+if($_SERVER['REQUEST_METHOD'] == 'POST'){
+	$email = $_POST['email'];
+	$password = $_POST['password'];
+
+	$registro = find('usuarios', ['email' => $email]);
+	if (!empty($registro) && $registro['email'] == $email && password_verify($password, $registro['password'])){
+		$_SESSION['admin'] = $email;
+		header('location: administrador.php');
+	} else {
+		echo "<script>alert('Datos incorrectos')</script>";
+	}
+}
+
+
+require_once 'views/index.php';
+?>

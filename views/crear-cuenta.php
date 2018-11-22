@@ -1,12 +1,8 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
 	<title>Sistema de ventas e inventario</title>
-	<link rel="stylesheet" type="text/css" href="libs/bootstrap/css/bootstrap-grid.css">
-	<link rel="stylesheet" type="text/css" href="libs/bootstrap/css/bootstrap-utilities.css">
-	<link rel="stylesheet" type="text/css" href="libs/materialize/css/materialize.css">
+	<?php include_once 'includes/head.php'; ?>
 </head>
 <body>
 	<div class="container">
